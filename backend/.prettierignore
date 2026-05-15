@@ -1,0 +1,21 @@
+# Node.js artifacts
+node_modules/
+dist/
+build/
+coverage/
+*.log
+
+# Configuration and lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.env
+.env.local
+
+# Specific JSON files (e.g., large or auto-generated)
+data/*.json
+seeds/*.json
+public/*.json
+
+# Other ignored files
+*.md   
