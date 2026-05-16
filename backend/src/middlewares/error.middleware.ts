@@ -1,19 +1,18 @@
-import type { Errback, Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import ApiErrorResponse from '../utils/ApiErrorResponse';
 import { ENV } from '../config/env';
 
 function globalErrorMiddleware(
   err: ApiError,
-  req: Request,
+  _: Request,
   res: Response,
   next: NextFunction
 ) {
   let error = err;
-  console.log(err);
 
-  if (!(err instanceof ApiErrorResponse)) {
-    error = new Error(err.message || 'Internal server error');
+  if (!(error instanceof ApiErrorResponse)) {
     error.statusCode = 500;
+    error.message = err.message || 'Internal Server Error';
     if (err.errors) {
       error.errors = err.errors;
     }
@@ -29,6 +28,7 @@ function globalErrorMiddleware(
     errors: error.errors || null,
     stack: ENV.NODE_ENV === 'development' ? error.stack : null,
   };
+  console.log(error);
 
   return res.status(error.statusCode || 500).json(errorResponse);
 }
