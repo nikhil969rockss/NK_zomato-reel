@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 
-import globalErrorMiddleware from '../middlewares/error.middleware';
+import globalErrorMiddleware from './middlewares/error.middleware';
 
 const app = express();
 

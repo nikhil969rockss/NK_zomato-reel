@@ -1,5 +1,5 @@
-import { connectDB } from '../config/db';
-import { ENV } from '../config/env';
+import { connectDB } from './config/db';
+import { ENV } from './config/env';
 import app from './app';
 
 const HOST_URL =

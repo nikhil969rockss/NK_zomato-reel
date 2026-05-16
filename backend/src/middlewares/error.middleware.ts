@@ -1,4 +1,4 @@
-import type { Errback, Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import ApiErrorResponse from '../utils/ApiErrorResponse';
 import { ENV } from '../config/env';
 
