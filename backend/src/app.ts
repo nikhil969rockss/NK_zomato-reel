@@ -11,8 +11,11 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true, limit: '15mb' }));
 
 //routes import
+import authRouter from './routes/auth.route';
 
 //routes use
+
+app.use('/api/v1/auth', authRouter);
 
 //global error handler
 app.use(globalErrorMiddleware);
