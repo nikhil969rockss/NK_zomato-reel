@@ -19,12 +19,25 @@ declare global {
     password: string;
   }
 
+  interface FoodPartner {
+    name: string;
+    email: string;
+    password: string;
+  }
+
   interface IUserDocument extends User, Document {
     comparePassword: (password: string) => Promise<boolean>;
     createJWT: () => string;
   }
 
   interface IUserModel extends Model<IUserDocument> {}
+
+  interface IFoodPartnerDocument extends FoodPartner, Document {
+    comparePassword: (password: string) => Promise<boolean>;
+    createJWT: () => string;
+  }
+
+  interface IFoodPartnerModel extends Model<IFoodPartnerDocument> {}
 
   interface IBlackListToken extends Document {
     token: string;

@@ -3,26 +3,51 @@ import {
   registerController,
   loginController,
   logoutController,
+  registerFoodPartnerController,
+  loginFoodPartnerController,
+  logoutFoodPartnerController,
 } from '../controllers/auth.controller';
 
 const authRouter = express.Router();
 
+//for user auth --------------------------------------
+
 /**
- * @route POST /auth/v1/register
+ * @route POST api/v1/auth/register
  * @access - PUBLIC
  */
 authRouter.post('/register', registerController);
 
 /**
- * @route POST /auth/v1/login
+ * @route POST api/v1/auth/login
  * @access - PUBLIC
  */
 authRouter.post('/login', loginController);
 
 /**
- * @route POST /auth/v1/logout
+ * @route POST api/v1/auth/logout
  * @access - PUBLIC
  */
 authRouter.post('/logout', logoutController);
+
+// For food partner auth ------------------
+
+/**
+ * @route POST api/v1/auth/food-partner/register
+ * @access - PUBLIC
+ */
+authRouter.post('/food-partner/register', registerFoodPartnerController);
+
+/**
+ * @route POST api/v1/auth/food-partner/login
+ * @access - PUBLIC
+ */
+authRouter.post('/food-partner/login', loginFoodPartnerController);
+
+/**
+ * @route POST api/v1/auth/food-partner/logout
+ * @access - PUBLIC
+ */
+authRouter.post('/food-partner/login', logoutFoodPartnerController);
 
 export default authRouter;

@@ -40,3 +40,45 @@ export const validateLoginBody = (body: LoginBody) => {
   }
   return data;
 };
+
+type FoodPartnerRegisterBody = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export const validateFoodPartnerRegisterBody = (
+  body: FoodPartnerRegisterBody
+) => {
+  const schema = z.object({
+    name: z
+      .string({ error: 'Name is required' })
+      .min(2, { error: 'name must be atleast 2 charcter' }),
+    email: z.email({ error: 'Invalid email address' }),
+    password: z
+      .string({ error: 'Password is required' })
+      .min(6, { error: 'Password must be atleast 6 characters' }),
+  });
+  const { error, success, data } = schema.safeParse(body);
+  if (!success) {
+    throw new ApiErrorResponse(400, z.prettifyError(error), error);
+  }
+  return data;
+};
+
+type FoodPartnerLoginBody = {
+  email: string;
+  password: string;
+};
+
+export const validateFoodPartnerLoginBody = (body: FoodPartnerLoginBody) => {
+  const schema = z.object({
+    email: z.email({ error: 'Invalid email address' }),
+    password: z.string({ error: 'Password is required' }),
+  });
+  const { error, success, data } = schema.safeParse(body);
+  if (!success) {
+    throw new ApiErrorResponse(400, z.prettifyError(error), error);
+  }
+  return data;
+};
