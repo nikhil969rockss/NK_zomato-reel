@@ -26,6 +26,11 @@ declare global {
 
   interface IUserModel extends Model<IUserDocument> {}
 
+  interface IBlackListToken extends Document {
+    token: string;
+    createdAt: Date;
+  }
+
   interface ApiRequest extends Request {
     user?: User;
   }

@@ -1,4 +1,5 @@
 import { ENV } from '../config/env';
+import BlackListTokenModel from '../models/blackListToken.model';
 import UserModel from '../models/user.model';
 import ApiErrorResponse from '../utils/ApiErrorResponse';
 import ApiResonse from '../utils/ApiResponse';
@@ -8,7 +9,7 @@ import { validateRegisterBody, validateLoginBody } from '../utils/validation';
 /**
  * @description Register a new user using ```fullName```, ```email```, ```password``` in body
  */
-const registerController = asyncHandler(async (req, res, next) => {
+const registerController = asyncHandler(async (req, res, _) => {
   const { email, password, fullName } = validateRegisterBody(req.body);
 
   // check if user already exists
@@ -43,7 +44,7 @@ const registerController = asyncHandler(async (req, res, next) => {
 /**
  * @description Login user using  ```email```, ```password``` in body
  */
-const loginController = asyncHandler(async (req, res, next) => {
+const loginController = asyncHandler(async (req, res, _) => {
   const { email, password } = validateLoginBody(req.body);
 
   // check if user already exists
@@ -79,4 +80,18 @@ const loginController = asyncHandler(async (req, res, next) => {
     .json(new ApiResonse(201, 'User created successfully', response));
 });
 
-export { registerController, loginController };
+/**
+ * @description Logout user
+ */
+const logoutController = asyncHandler(async (req, res, _) => {
+  const token = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
+  if (token) {
+    await BlackListTokenModel.create({ token });
+  }
+  res.clearCookie('jwt');
+  return res
+    .status(200)
+    .json(new ApiResonse(200, 'User logged out successfully'));
+});
+
+export { registerController, loginController, logoutController };
