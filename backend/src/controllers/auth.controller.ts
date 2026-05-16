@@ -1,10 +1,16 @@
 import { ENV } from '../config/env';
 import BlackListTokenModel from '../models/blackListToken.model';
+import FoodPartnerModel from '../models/foodPartner.model';
 import UserModel from '../models/user.model';
 import ApiErrorResponse from '../utils/ApiErrorResponse';
 import ApiResonse from '../utils/ApiResponse';
 import asyncHandler from '../utils/asyncHandler';
-import { validateRegisterBody, validateLoginBody } from '../utils/validation';
+import {
+  validateRegisterBody,
+  validateLoginBody,
+  validateFoodPartnerRegisterBody,
+  validateFoodPartnerLoginBody,
+} from '../utils/validation';
 
 /**
  * @description Register a new user using ```fullName```, ```email```, ```password``` in body
@@ -77,7 +83,7 @@ const loginController = asyncHandler(async (req, res, _) => {
 
   return res
     .status(201)
-    .json(new ApiResonse(201, 'User created successfully', response));
+    .json(new ApiResonse(200, 'User logged in successfully', response));
 });
 
 /**
@@ -94,4 +100,102 @@ const logoutController = asyncHandler(async (req, res, _) => {
     .json(new ApiResonse(200, 'User logged out successfully'));
 });
 
-export { registerController, loginController, logoutController };
+/**
+ * @description Register food parter who can add food post fields - ```name```, ```email``` , ```password```
+ */
+const registerFoodPartnerController = asyncHandler(async (req, res, _) => {
+  const { name, email, password } = validateFoodPartnerRegisterBody(req.body);
+
+  const isFoodPartnerExist = await FoodPartnerModel.findOne({ email });
+  if (isFoodPartnerExist) {
+    throw new ApiErrorResponse(
+      429,
+      'food partner already exists with this email'
+    );
+  }
+
+  const newFoodPartner = await FoodPartnerModel.create({
+    name,
+    email,
+    password,
+  });
+
+  //create token
+  const token = newFoodPartner.createJWT();
+
+  //attach it to cookie
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: ENV.NODE_ENV === 'production' ? true : false,
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
+  });
+
+  const response = {
+    _id: newFoodPartner._id,
+    name: newFoodPartner.name,
+    email: newFoodPartner.email,
+  };
+  return res
+    .status(201)
+    .json(
+      new ApiResonse(201, 'Food partner user created successfully', response)
+    );
+});
+
+/**
+ * @description Lodin food parter who can add food post fields - ```email``` , ```password```
+ */
+const loginFoodPartnerController = asyncHandler(async (req, res, _) => {
+  const { email, password } = validateFoodPartnerLoginBody(req.body);
+
+  const isFoodPartnerExists = await FoodPartnerModel.findOne({ email });
+  if (!isFoodPartnerExists) {
+    throw new ApiErrorResponse(
+      400,
+      "Food partner doesn't exists with this email"
+    );
+  }
+  const isPasswordMatch = await isFoodPartnerExists.comparePassword(password);
+  if (!isPasswordMatch) {
+    throw new ApiErrorResponse(400, 'Invalid credentials');
+  }
+
+  //create token
+  const token = isFoodPartnerExists.createJWT();
+
+  //attach it to cookie
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: ENV.NODE_ENV === 'production' ? true : false,
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7d
+  });
+
+  const response = {
+    _id: isFoodPartnerExists._id,
+    name: isFoodPartnerExists.name,
+    email: isFoodPartnerExists.email,
+  };
+  return res
+    .status(200)
+    .json(new ApiResonse(200, 'Food partner logged in successfully', response));
+});
+
+const logoutFoodPartnerController = asyncHandler(async (req, res, _) => {
+  const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
+  if (token) {
+    await BlackListTokenModel.create({ token });
+  }
+  res.clearCookie('token');
+  return res
+    .status(200)
+    .json(new ApiResonse(200, 'Food partner logged out successfully'));
+});
+
+export {
+  registerController,
+  loginController,
+  logoutController,
+  registerFoodPartnerController,
+  loginFoodPartnerController,
+  logoutFoodPartnerController,
+};
