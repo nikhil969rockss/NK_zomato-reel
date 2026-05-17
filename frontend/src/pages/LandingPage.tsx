@@ -1,25 +1,3 @@
-import { useState, useEffect } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Play,
-  UtensilsCrossed,
-  ArrowRight,
-  MapPin,
-  Heart,
-  ChefHat,
-  TrendingUp,
-  Zap,
-  Search,
-  Users,
-  Flame,
-} from "lucide-react";
 import Navbar from "@/components/LandingPage/Navbar";
 import HeroSection from "@/components/LandingPage/HeroSection";
 import BrandsSection from "@/components/LandingPage/BrandSection";

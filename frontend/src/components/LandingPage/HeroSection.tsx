@@ -12,6 +12,7 @@ import {
   Star,
 } from "lucide-react";
 import { FOOD_IMAGES } from "@/lib/constants";
+import { Link } from "react-router";
 
 const HeroSection = () => {
   const { scrollY } = useScroll();
@@ -76,17 +77,20 @@ const HeroSection = () => {
               transition={{ delay: 0.5, duration: 0.6 }}
               className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-base font-semibold rounded-full px-8 h-14 shadow-xl shadow-primary/25"
-              >
-                <Play className="w-5 h-5 mr-2 fill-current" />
-                Start Exploring
-              </Button>
+              <Link to={"/register"}>
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-base font-semibold rounded-full px-8 h-14 shadow-xl shadow-primary/25 cursor-pointer "
+                >
+                  <Play className="w-5 h-5 mr-2 fill-current" />
+                  Start Exploring
+                </Button>
+              </Link>
+
               <Button
                 size="lg"
                 variant="outline"
-                className="text-base font-semibold rounded-full px-8 h-14 border-2"
+                className="text-base font-semibold rounded-full px-8 h-14 border-2  cursor-pointer"
               >
                 <Camera className="w-5 h-5 mr-2" />
                 Create Reels
