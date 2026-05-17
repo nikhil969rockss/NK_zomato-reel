@@ -82,3 +82,27 @@ export const validateFoodPartnerLoginBody = (body: FoodPartnerLoginBody) => {
   }
   return data;
 };
+
+type FoodPostBody = {
+  name: string;
+  description: string;
+};
+
+export const validateFoodPostBody = (body: FoodPostBody) => {
+  const schema = z.object({
+    name: z
+      .string({ error: 'Food name is required' })
+      .min(2, 'Name must be min of 2 character'),
+    description: z
+      .string()
+      .min(1, { error: 'description must be min of 1 character ' })
+      .max(500, 'description can not exceed 500 character')
+      .optional(),
+  });
+
+  const { success, data, error } = schema.safeParse(body);
+  if (!success) {
+    throw new ApiErrorResponse(400, z.prettifyError(error), error);
+  }
+  return data;
+};

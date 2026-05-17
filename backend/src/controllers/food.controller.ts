@@ -3,13 +3,11 @@ import FoodPostModel from '../models/foodPost.mode';
 import ApiErrorResponse from '../utils/ApiErrorResponse';
 import ApiResonse from '../utils/ApiResponse';
 import asyncHandler from '../utils/asyncHandler';
+import { validateFoodPostBody } from '../utils/validation';
 
 const createFoodPostController = asyncHandler(async (req, res, _) => {
   // console.log(req.foodPartner);
-  const { name, description } = req.body;
-  if (!name) {
-    throw new ApiErrorResponse(400, 'post name is not provided');
-  }
+  const { name, description } = validateFoodPostBody(req.body);
 
   const file = req.file;
   if (!file) {
