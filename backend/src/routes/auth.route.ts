@@ -10,7 +10,7 @@ import {
 
 const authRouter = express.Router();
 
-//for user auth --------------------------------------
+/*------------------------------ User Routes --------------------------------------------- */
 
 /**
  * @route POST api/v1/auth/register
@@ -30,7 +30,7 @@ authRouter.post('/login', loginController);
  */
 authRouter.post('/logout', logoutController);
 
-// For food partner auth ------------------
+/*------------------------------ Food Partner Routes --------------------------------------------- */
 
 /**
  * @route POST api/v1/auth/food-partner/register

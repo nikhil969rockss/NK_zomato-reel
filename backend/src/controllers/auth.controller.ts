@@ -100,6 +100,7 @@ const logoutController = asyncHandler(async (req, res, _) => {
     .json(new ApiResonse(200, 'User logged out successfully'));
 });
 
+/*------------------------------ Food Partner Controllers --------------------------------------------- */
 /**
  * @description Register food parter who can add food post fields - ```name```, ```email``` , ```password```
  */

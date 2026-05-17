@@ -1,4 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
+import type mongoose from 'mongoose';
 import type { Document, Model } from 'mongoose';
 
 declare global {
@@ -10,16 +11,18 @@ declare global {
   }
 
   interface RequesHandlerFn {
-    (req: Request, res: Response, next: NextFunction): Promise<any>;
+    (req: ApiRequest, res: Response, next: NextFunction): Promise<any>;
   }
 
   interface User {
+    _id: mongoose.Schema.Types.ObjectId;
     fullName: string;
     email: string;
     password: string;
   }
 
   interface FoodPartner {
+    _id: mongoose.Schema.Types.ObjectIding;
     name: string;
     email: string;
     password: string;
@@ -46,6 +49,20 @@ declare global {
 
   interface ApiRequest extends Request {
     user?: User;
+    foodPartner?: FoodPartner;
+  }
+
+  interface FoodPostDocument extends Document {
+    video: string;
+    name: string;
+    description: string;
+    foodPartnerId: mongoose.Schema.Types.ObjectId;
+  }
+
+  interface decodedToken {
+    userId: string;
+    iat: number;
+    exp?: number;
   }
 }
 export {};
