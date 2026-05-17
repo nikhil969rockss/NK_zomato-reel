@@ -49,7 +49,7 @@ declare global {
 
   interface ApiRequest extends Request {
     user?: User;
-    foodPartner?: FoodPartner;
+    foodPartner?: FoodPost;
   }
 
   interface FoodPostDocument extends Document {

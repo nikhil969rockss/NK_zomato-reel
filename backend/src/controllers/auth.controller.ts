@@ -30,7 +30,7 @@ const registerController = asyncHandler(async (req, res, _) => {
   const token = newUser.createJWT();
 
   // set to cookie
-  res.cookie('jwt', token, {
+  res.cookie('token', token, {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week,
     secure: ENV.NODE_ENV === 'production' ? true : false,
@@ -69,7 +69,7 @@ const loginController = asyncHandler(async (req, res, _) => {
   const token = isUserExist.createJWT();
 
   // set to cookie
-  res.cookie('jwt', token, {
+  res.cookie('token', token, {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week,
     secure: ENV.NODE_ENV === 'production' ? true : false,
@@ -94,7 +94,7 @@ const logoutController = asyncHandler(async (req, res, _) => {
   if (token) {
     await BlackListTokenModel.create({ token });
   }
-  res.clearCookie('jwt');
+  res.clearCookie('token');
   return res
     .status(200)
     .json(new ApiResonse(200, 'User logged out successfully'));
