@@ -105,7 +105,8 @@ const logoutController = asyncHandler(async (req, res, _) => {
  * @description Register food parter who can add food post fields - ```name```, ```email``` , ```password```
  */
 const registerFoodPartnerController = asyncHandler(async (req, res, _) => {
-  const { name, email, password } = validateFoodPartnerRegisterBody(req.body);
+  const { name, email, password, contactName, address, phone } =
+    validateFoodPartnerRegisterBody(req.body);
 
   const isFoodPartnerExist = await FoodPartnerModel.findOne({ email });
   if (isFoodPartnerExist) {
@@ -119,6 +120,9 @@ const registerFoodPartnerController = asyncHandler(async (req, res, _) => {
     name,
     email,
     password,
+    contactName,
+    address,
+    phone,
   });
 
   //create token
@@ -134,6 +138,9 @@ const registerFoodPartnerController = asyncHandler(async (req, res, _) => {
   const response = {
     _id: newFoodPartner._id,
     name: newFoodPartner.name,
+    contactName: newFoodPartner.contactName,
+    phone: newFoodPartner.phone,
+    address: newFoodPartner.address,
     email: newFoodPartner.email,
   };
   return res

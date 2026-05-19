@@ -62,12 +62,18 @@ const RegisterUserPage = () => {
         className="relative z-10"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16 sm:h-20">
+          <div className="flex items-center justify-between h-16 sm:h-20">
             <Link to="/" className="flex items-center gap-2">
               <ArrowLeft className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />
               <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Back to home
               </span>
+            </Link>
+            <Link
+              to="/food-partner/register"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Register as food partner →
             </Link>
           </div>
         </div>

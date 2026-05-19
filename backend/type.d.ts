@@ -24,6 +24,9 @@ declare global {
   interface FoodPartner {
     _id: mongoose.Schema.Types.ObjectIding;
     name: string;
+    contactName: string;
+    phone: string;
+    address: string;
     email: string;
     password: string;
   }
