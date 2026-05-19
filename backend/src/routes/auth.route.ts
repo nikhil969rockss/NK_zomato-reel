@@ -6,7 +6,9 @@ import {
   registerFoodPartnerController,
   loginFoodPartnerController,
   logoutFoodPartnerController,
+  getLoggedInUserController,
 } from '../controllers/auth.controller';
+import { authenticateUser } from '../middlewares/auth.middleware';
 
 const authRouter = express.Router();
 
@@ -49,5 +51,12 @@ authRouter.post('/food-partner/login', loginFoodPartnerController);
  * @access - PUBLIC
  */
 authRouter.post('/food-partner/login', logoutFoodPartnerController);
+
+// -----------------------------------------------
+/**
+ * @route POST api/v1/auth/get-user
+ * @access - PROTECTED [only user and food partner can access]
+ */
+authRouter.get('/get-user', authenticateUser, getLoggedInUserController);
 
 export default authRouter;

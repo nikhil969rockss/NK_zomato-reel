@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Flame, ArrowRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -39,7 +40,7 @@ const Navbar = () => {
           </motion.div>
 
           <div className="hidden md:flex items-center gap-8">
-            {["Explore", "Features", "Creators", "Pricing"].map((item) => (
+            {["Explore", "Features"].map((item) => (
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -52,13 +53,21 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" className="text-sm font-medium">
-              Log in
-            </Button>
-            <Button className="bg-primary hover:bg-primary/90 text-sm font-medium rounded-full px-6">
-              Get Started
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
+            <Link to={"/login"}>
+              <Button
+                variant="ghost"
+                className="text-sm font-medium cursor-pointer"
+              >
+                Log in
+              </Button>
+            </Link>
+
+            <Link to={"/register"}>
+              <Button className="bg-primary hover:bg-primary/90 text-sm font-medium rounded-full px-6 cursor-pointer">
+                Get Started
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
           </div>
 
           <button

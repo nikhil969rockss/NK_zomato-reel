@@ -1,33 +1,22 @@
-import { useState, useEffect } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Play,
-  UtensilsCrossed,
-  ArrowRight,
-  MapPin,
-  Heart,
-  ChefHat,
-  TrendingUp,
-  Zap,
-  Search,
-  Users,
-  Flame,
-} from "lucide-react";
+import { lazy } from "react";
+
 import Navbar from "@/components/LandingPage/Navbar";
-import HeroSection from "@/components/LandingPage/HeroSection";
-import BrandsSection from "@/components/LandingPage/BrandSection";
-import FeaturesSection from "@/components/LandingPage/FeatureSection";
-import TrendingSection from "@/components/LandingPage/TrandingSection";
-import HowItWorksSection from "@/components/LandingPage/HowItWorksSection";
-import CTASection from "@/components/LandingPage/CTASection";
-import Footer from "@/components/LandingPage/Footer";
+const HeroSection = lazy(() => import("@/components/LandingPage/HeroSection"));
+const BrandsSection = lazy(
+  () => import("@/components/LandingPage/BrandSection"),
+);
+const FeaturesSection = lazy(
+  () => import("@/components/LandingPage/FeatureSection"),
+);
+const TrendingSection = lazy(
+  () => import("@/components/LandingPage/TrandingSection"),
+);
+const HowItWorksSection = lazy(
+  () => import("@/components/LandingPage/HowItWorksSection"),
+);
+const CTASection = lazy(() => import("@/components/LandingPage/CTASection"));
+
+const Footer = lazy(() => import("@/components/LandingPage/Footer"));
 
 const LandingPage = () => {
   return (

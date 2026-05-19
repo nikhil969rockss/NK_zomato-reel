@@ -192,6 +192,20 @@ const logoutFoodPartnerController = asyncHandler(async (req, res, _) => {
     .json(new ApiResonse(200, 'Food partner logged out successfully'));
 });
 
+/**
+ * This controller is user to get the logoged in user either user or food partner
+ */
+const getLoggedInUserController = asyncHandler(async (req, res, _) => {
+  const user = req?.user || req?.foodPartner;
+  if (!user) {
+    throw new ApiErrorResponse(401, 'Unauthorized access');
+  }
+  user.password = undefined;
+  return res
+    .status(200)
+    .json(new ApiResonse(200, 'Fetched logged in user succesfully', user));
+});
+
 export {
   registerController,
   loginController,
@@ -199,4 +213,5 @@ export {
   registerFoodPartnerController,
   loginFoodPartnerController,
   logoutFoodPartnerController,
+  getLoggedInUserController,
 };
