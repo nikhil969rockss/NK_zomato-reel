@@ -1,15 +1,52 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Flame, Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { Flame, Eye, EyeOff, ArrowLeft, Loader2Icon } from "lucide-react";
+import axiosInstance from "@/lib/axios";
+import { useAppDispatch } from "@/redux/hooks";
+import { toast } from "react-toastify";
+import { setUser } from "@/redux/slices/userSlice";
 
 const RegisterUserPage = () => {
+  //states
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  //hooks
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  //functions
   async function handleSubmitRegister(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+    const fullName = e.target.firstName.value + e.target.lastName.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    const registerInputBody = {
+      fullName,
+      email,
+      password,
+    };
+    setLoading(true);
+    try {
+      const response = await axiosInstance.post(
+        "auth/register",
+        registerInputBody,
+      );
+
+      toast.success("User registered successfully");
+      dispatch(setUser(response.data?.data));
+      navigate("/food-reels");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || "Failed to register");
+      console.log(error?.response?.data);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -108,6 +145,7 @@ const RegisterUserPage = () => {
                   type="email"
                   placeholder="john@example.com"
                   className="h-12 rounded-xl text-base mt-2"
+                  autoComplete="current-password"
                 />
               </div>
 
@@ -141,9 +179,13 @@ const RegisterUserPage = () => {
 
               <Button
                 type="submit"
-                className="w-full h-12 rounded-xl text-base font-semibold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25"
+                className="w-full h-12 flex items-center justify-center rounded-xl text-base font-semibold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25"
               >
-                Create Account
+                {loading ? (
+                  <Loader2Icon className="w-4 h-4 animate-spin" />
+                ) : (
+                  "Create Account"
+                )}
               </Button>
             </form>
 

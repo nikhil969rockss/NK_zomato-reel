@@ -4,11 +4,17 @@ import RegisterUserPage from "./pages/RegisterUserPage";
 import LoginUserPage from "./pages/LoginUserPage";
 import RegisterFoodPartnerPage from "./pages/RegisterFoodPartnerPage";
 import LoginFoodPartnerPage from "./pages/LoginFoodPartnerPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import FoodReelsPage from "./pages/FoodReelsPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
+    element: (
+      <>
+        <LandingPage />,
+      </>
+    ),
   },
 
   {
@@ -26,6 +32,14 @@ const router = createBrowserRouter([
   {
     path: "/food-partner/login",
     element: <LoginFoodPartnerPage />,
+  },
+  {
+    path: "/food-reels",
+    element: (
+      <ProtectedRoute>
+        <FoodReelsPage />
+      </ProtectedRoute>
+    ),
   },
 ]);
 
