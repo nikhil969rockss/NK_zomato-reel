@@ -67,7 +67,7 @@ const RegisterFoodPartnerPage = () => {
 
       toast.success("Partner account created successfully");
       dispatch(setUser(response.data?.data));
-      navigate("/food-reels");
+      navigate("/food-reels", { replace: true });
     } catch (error: unknown) {
       const err = error as { response?: { data?: { message?: string } } };
       toast.error(
