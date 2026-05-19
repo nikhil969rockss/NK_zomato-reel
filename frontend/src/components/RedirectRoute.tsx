@@ -1,18 +1,18 @@
 import axiosInstance from "@/lib/axios";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setUser } from "@/redux/slices/userSlice";
-import { LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router";
 import BackgroundTheme from "./BackgroundTheme";
+import { LoaderCircle } from "lucide-react";
+import { Navigate } from "react-router";
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+const RedirectRoute = ({ children }: { children: React.ReactNode }) => {
   const user = useAppSelector((state) => state.user.user);
-  const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchUser() {
+    async function checkAuth() {
       try {
         const response = await axiosInstance.get("/auth/get-user");
         dispatch(setUser(response.data?.data));
@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
         setLoading(false);
       }
     }
-    fetchUser();
+    checkAuth();
   }, [dispatch]);
 
   if (loading) {
@@ -36,11 +36,11 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (!user) {
-    return <Navigate to="/" replace />;
+  if (user) {
+    return <Navigate to={"/food-reels"} />;
   }
 
-  return <>{children}</>;
+  return children;
 };
 
-export default ProtectedRoute;
+export default RedirectRoute;

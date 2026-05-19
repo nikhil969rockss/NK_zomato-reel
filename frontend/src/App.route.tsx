@@ -6,24 +6,33 @@ import RegisterFoodPartnerPage from "./pages/RegisterFoodPartnerPage";
 import LoginFoodPartnerPage from "./pages/LoginFoodPartnerPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FoodReelsPage from "./pages/FoodReelsPage";
+import RedirectRoute from "./components/RedirectRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <>
-        <LandingPage />,
-      </>
+      <RedirectRoute>
+        <LandingPage />
+      </RedirectRoute>
     ),
   },
 
   {
     path: "/register",
-    element: <RegisterUserPage />,
+    element: (
+      <RedirectRoute>
+        <RegisterUserPage />
+      </RedirectRoute>
+    ),
   },
   {
     path: "/login",
-    element: <LoginUserPage />,
+    element: (
+      <RedirectRoute>
+        <LoginUserPage />
+      </RedirectRoute>
+    ),
   },
   {
     path: "/food-partner/register",
