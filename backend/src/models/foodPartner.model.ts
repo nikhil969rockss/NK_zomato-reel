@@ -12,6 +12,22 @@ const foodPartnerSchema = new mongoose.Schema<
     required: [true, 'Name is required'],
     trim: true,
   },
+  contactName: {
+    type: String,
+    required: [true, 'Contact Name is required'],
+    trim: true,
+  },
+  phone: {
+    type: String,
+    required: [true, 'Phone is required'],
+    trim: true,
+  },
+  address: {
+    type: String,
+    required: [true, 'Phone is required'],
+    trim: true,
+  },
+
   email: {
     type: String,
     required: [true, 'Email is required'],

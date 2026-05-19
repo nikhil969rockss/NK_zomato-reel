@@ -87,14 +87,16 @@ const HeroSection = () => {
                 </Button>
               </Link>
 
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-base font-semibold rounded-full px-8 h-14 border-2  cursor-pointer"
-              >
-                <Camera className="w-5 h-5 mr-2" />
-                Create Reels
-              </Button>
+              <Link to={"/food-partner/register"}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-base font-semibold rounded-full px-8 h-14 border-2  cursor-pointer"
+                >
+                  <Camera className="w-5 h-5 mr-2" />
+                  Create Reels
+                </Button>
+              </Link>
             </motion.div>
 
             <motion.div
