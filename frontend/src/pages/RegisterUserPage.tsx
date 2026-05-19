@@ -21,16 +21,17 @@ const RegisterUserPage = () => {
   //functions
   async function handleSubmitRegister(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fullName = e.target.firstName.value + e.target.lastName.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
     const registerInputBody = {
-      fullName,
-      email,
-      password,
+      fullName: `${formData.get("firstName")} ${formData.get("lastName")}`,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
     };
     setLoading(true);
+
     try {
       const response = await axiosInstance.post(
         "auth/register",
@@ -40,10 +41,11 @@ const RegisterUserPage = () => {
       toast.success("User registered successfully");
       dispatch(setUser(response.data?.data));
       navigate("/food-reels");
-    } catch (error) {
-      console.log(error);
-      toast.error(error?.response?.data?.message || "Failed to register");
-      console.log(error?.response?.data);
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
+
+      toast.error(err?.response?.data?.message || "Failed to register");
+      console.log(err?.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -51,7 +53,7 @@ const RegisterUserPage = () => {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-red-50" />
+      <div className="absolute inset-0 bg-linear-to-br from-orange-50 via-white to-red-50" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(249,115,22,0.08),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(239,68,68,0.06),transparent_50%)]" />
 
@@ -119,6 +121,7 @@ const RegisterUserPage = () => {
                   <Input
                     id="firstName"
                     type="text"
+                    name="firstName"
                     placeholder="John"
                     className="h-12 rounded-xl text-base mt-2"
                   />
@@ -133,6 +136,7 @@ const RegisterUserPage = () => {
                   <Input
                     id="lastName"
                     type="text"
+                    name="lastName"
                     placeholder="Doe"
                     className="h-12 rounded-xl text-base mt-2"
                   />
@@ -149,6 +153,7 @@ const RegisterUserPage = () => {
                 <Input
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="john@example.com"
                   className="h-12 rounded-xl text-base mt-2"
                   autoComplete="current-password"
@@ -165,6 +170,7 @@ const RegisterUserPage = () => {
                 <div className="relative">
                   <Input
                     id="password"
+                    name="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Min. 8 characters"
                     className="h-12 rounded-xl text-base pr-1 mt-2"

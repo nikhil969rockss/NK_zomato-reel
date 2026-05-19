@@ -21,7 +21,7 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen pt-20 sm:pt-24 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-red-50" />
+      <div className="absolute inset-0 bg-linear-to-br from-orange-50 via-white to-red-50" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(249,115,22,0.08),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(239,68,68,0.06),transparent_50%)]" />
 
@@ -55,7 +55,7 @@ const HeroSection = () => {
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight leading-[1.1]"
             >
               Discover Food{" "}
-              <span className="bg-gradient-to-r from-primary via-orange-500 to-red-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-primary via-orange-500 to-red-500 bg-clip-text text-transparent">
                 in Motion
               </span>
             </motion.h1>
@@ -109,7 +109,7 @@ const HeroSection = () => {
                 {[1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className="w-10 h-10 rounded-full border-2 border-background bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center text-white text-xs font-bold"
+                    className="w-10 h-10 rounded-full border-2 border-background bg-linear-to-br from-primary to-orange-400 flex items-center justify-center text-white text-xs font-bold"
                   >
                     {String.fromCharCode(64 + i)}
                   </div>
@@ -132,13 +132,13 @@ const HeroSection = () => {
                 animate={{ opacity: 1, scale: 1, rotateY: 0 }}
                 transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
               >
-                <div className="relative rounded-[2rem] overflow-hidden aspect-[9/16]">
+                <div className="relative rounded-[2rem] overflow-hidden aspect-9/16">
                   <img
                     src={FOOD_IMAGES[0]}
                     alt="Food reel"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
 
                   <div className="absolute bottom-4 left-4 right-16">
                     <div className="flex items-center gap-2 mb-2">
@@ -228,7 +228,7 @@ const HeroSection = () => {
       </div>
 
       <motion.div
-        className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent"
+        className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-background to-transparent"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}

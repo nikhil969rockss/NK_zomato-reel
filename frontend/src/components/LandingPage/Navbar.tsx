@@ -34,7 +34,7 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
               <Flame className="w-6 h-6 text-primary-foreground" />
             </div>
-            <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent">
+            <span className="text-xl sm:text-2xl font-bold bg-linear-to-rfrom-primary to-orange-500 bg-clip-text text-transparent">
               FoodReels
             </span>
           </motion.div>

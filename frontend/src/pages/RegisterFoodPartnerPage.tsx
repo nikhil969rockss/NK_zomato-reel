@@ -35,13 +35,16 @@ const fieldVariants: Variants = {
 };
 
 const RegisterFoodPartnerPage = () => {
+  //states
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  //hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  async function handleSubmitRegister(e: React.FormEvent<HTMLFormElement>) {
+  //functions
+  async function handleSubmitRegister(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -58,7 +61,7 @@ const RegisterFoodPartnerPage = () => {
     setLoading(true);
     try {
       const response = await axiosInstance.post(
-        "auth/food-partner/register",
+        "/auth/food-partner/register",
         registerInputBody,
       );
 
@@ -87,7 +90,7 @@ const RegisterFoodPartnerPage = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="absolute inset-0 bg-gradient-to-br from-amber-50 via-white to-orange-50"
+        className="absolute inset-0 bg-linear-to-br from-amber-50 via-white to-orange-50"
       />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(245,158,11,0.12),transparent_45%)]" />
       <motion.div
@@ -184,9 +187,9 @@ const RegisterFoodPartnerPage = () => {
               whileHover={{ scale: 1.04 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-400 to-primary blur-md opacity-40 scale-110" />
+              <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-amber-400 to-primary blur-md opacity-40 scale-110" />
               <motion.div
-                className="relative w-16 h-16 bg-gradient-to-br from-amber-500 to-primary rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/25"
+                className="relative w-16 h-16 bg-linear-to-br from-amber-500 to-primary rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/25"
                 whileHover={{ rotate: -4 }}
               >
                 <Store className="w-9 h-9 text-white" />
@@ -202,7 +205,7 @@ const RegisterFoodPartnerPage = () => {
 
             <h1 className="text-3xl sm:text-4xl font-black tracking-tight">
               Grow your{" "}
-              <span className="bg-gradient-to-r from-amber-600 to-primary bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-amber-600 to-primary bg-clip-text text-transparent">
                 kitchen brand
               </span>
             </h1>
@@ -222,7 +225,7 @@ const RegisterFoodPartnerPage = () => {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
-              className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-400 via-primary to-amber-500 origin-left"
+              className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-amber-400 via-primary to-amber-500 origin-left"
             />
 
             <form onSubmit={handleSubmitRegister} className="space-y-6">
@@ -386,7 +389,7 @@ const RegisterFoodPartnerPage = () => {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full h-12 flex items-center justify-center gap-2 rounded-xl text-base font-semibold bg-gradient-to-r from-amber-500 to-primary hover:from-amber-600 hover:to-primary/90 shadow-lg shadow-amber-500/20 border-0"
+                  className="w-full h-12 flex items-center justify-center gap-2 rounded-xl text-base font-semibold bg-linear-to-r from-amber-500 to-primary hover:from-amber-600 hover:to-primary/90 shadow-lg shadow-amber-500/20 border-0"
                 >
                   {loading ? (
                     <Loader2Icon className="w-5 h-5 animate-spin" />
