@@ -181,7 +181,10 @@ const loginFoodPartnerController = asyncHandler(async (req, res, _) => {
   const response = {
     _id: isFoodPartnerExists._id,
     name: isFoodPartnerExists.name,
+    contactName: isFoodPartnerExists.contactName,
+    phone: isFoodPartnerExists.phone,
     email: isFoodPartnerExists.email,
+    address: isFoodPartnerExists.address,
   };
   return res
     .status(200)
@@ -200,7 +203,7 @@ const logoutFoodPartnerController = asyncHandler(async (req, res, _) => {
 });
 
 /**
- * This controller is user to get the logoged in user either user or food partner
+ * This controller is  to get the logoged in user either user or food partner
  */
 const getLoggedInUserController = asyncHandler(async (req, res, _) => {
   const user = req?.user || req?.foodPartner;
@@ -213,6 +216,20 @@ const getLoggedInUserController = asyncHandler(async (req, res, _) => {
     .json(new ApiResonse(200, 'Fetched logged in user succesfully', user));
 });
 
+/**
+ * This controller is  to get the logoged in food partenr
+ */
+const getLoggedInFoodPartnerController = asyncHandler(async (req, res, _) => {
+  const foodPartner = req?.foodPartner;
+  if (!foodPartner) {
+    throw new ApiErrorResponse(401, 'Unauthorized access');
+  }
+  foodPartner.password = undefined;
+  return res
+    .status(200)
+    .json(new ApiResonse(200, 'Fetched food-partner details', foodPartner));
+});
+
 export {
   registerController,
   loginController,
@@ -221,4 +238,5 @@ export {
   loginFoodPartnerController,
   logoutFoodPartnerController,
   getLoggedInUserController,
+  getLoggedInFoodPartnerController,
 };

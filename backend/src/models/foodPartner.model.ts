@@ -6,39 +6,42 @@ import { ENV } from '../config/env';
 const foodPartnerSchema = new mongoose.Schema<
   IFoodPartnerDocument,
   IFoodPartnerModel
->({
-  name: {
-    type: String,
-    required: [true, 'Name is required'],
-    trim: true,
-  },
-  contactName: {
-    type: String,
-    required: [true, 'Contact Name is required'],
-    trim: true,
-  },
-  phone: {
-    type: String,
-    required: [true, 'Phone is required'],
-    trim: true,
-  },
-  address: {
-    type: String,
-    required: [true, 'Phone is required'],
-    trim: true,
-  },
+>(
+  {
+    name: {
+      type: String,
+      required: [true, 'Name is required'],
+      trim: true,
+    },
+    contactName: {
+      type: String,
+      required: [true, 'Contact Name is required'],
+      trim: true,
+    },
+    phone: {
+      type: String,
+      required: [true, 'Phone is required'],
+      trim: true,
+    },
+    address: {
+      type: String,
+      required: [true, 'Phone is required'],
+      trim: true,
+    },
 
-  email: {
-    type: String,
-    required: [true, 'Email is required'],
-    unique: true,
-    trim: true,
-    lowercase: true,
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true,
+      trim: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+    },
   },
-  password: {
-    type: String,
-  },
-});
+  { timestamps: true }
+);
 
 foodPartnerSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
