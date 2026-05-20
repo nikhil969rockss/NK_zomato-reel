@@ -1,5 +1,5 @@
-const CreateFood = () => {
+const CreateFoodPage = () => {
   return <div>CreateFood</div>;
 };
 
-export default CreateFood;
+export default CreateFoodPage;

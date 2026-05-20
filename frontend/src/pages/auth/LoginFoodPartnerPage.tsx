@@ -21,7 +21,8 @@ import {
 import axiosInstance from "@/lib/axios";
 import { useAppDispatch } from "@/redux/hooks";
 import { toast } from "react-toastify";
-import { setUser } from "@/redux/slices/userSlice";
+
+import { setFoodPartner } from "@/redux/slices/foodPartnerSlice";
 
 const fieldVariants: Variants = {
   hidden: { opacity: 0, x: -16 },
@@ -43,7 +44,7 @@ const LoginFoodPartnerPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+  async function handleLogin(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -60,11 +61,12 @@ const LoginFoodPartnerPage = () => {
         "/auth/food-partner/login",
         loginInput,
       );
-      dispatch(setUser(response.data?.data));
+      dispatch(setFoodPartner(response.data?.data));
       toast.success("Partner login successful");
-      navigate("/food-reels", { replace: true });
+      navigate("/create-food", { replace: true });
     } catch (error: unknown) {
       const err = error as { response?: { data?: { message?: string } } };
+      dispatch(setFoodPartner(null));
       toast.error(err?.response?.data?.message || "Failed to log in");
     } finally {
       setLoading(false);
@@ -110,7 +112,12 @@ const LoginFoodPartnerPage = () => {
       </motion.div>
       <motion.div
         animate={{ y: [0, 12, 0], rotate: [0, -5, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.5,
+        }}
         className="absolute bottom-40 left-[8%] hidden lg:flex w-11 h-11 rounded-2xl bg-primary/10 border border-primary/20 items-center justify-center text-primary shadow-sm"
       >
         <MapPin className="w-5 h-5" />
@@ -158,7 +165,11 @@ const LoginFoodPartnerPage = () => {
             <div className="relative h-[520px]">
               <motion.div
                 animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
                 className="absolute top-0 right-0 w-44 h-56 rounded-3xl overflow-hidden shadow-2xl shadow-amber-900/10 border-4 border-white/80 rotate-6 z-10"
               >
                 <img

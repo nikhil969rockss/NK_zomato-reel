@@ -18,8 +18,9 @@ import {
 import axiosInstance from "@/lib/axios";
 import { useAppDispatch } from "@/redux/hooks";
 import { toast } from "react-toastify";
-import { setUser } from "@/redux/slices/userSlice";
+
 import { cn } from "@/lib/utils";
+import { setFoodPartner } from "@/redux/slices/foodPartnerSlice";
 
 const fieldVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
@@ -64,12 +65,12 @@ const RegisterFoodPartnerPage = () => {
         "/auth/food-partner/register",
         registerInputBody,
       );
-
       toast.success("Partner account created successfully");
-      dispatch(setUser(response.data?.data));
-      navigate("/food-reels", { replace: true });
+      dispatch(setFoodPartner(response.data?.data));
+      navigate("/create-food", { replace: true });
     } catch (error: unknown) {
       const err = error as { response?: { data?: { message?: string } } };
+      dispatch(setFoodPartner(null));
       toast.error(
         err?.response?.data?.message || "Failed to register partner account",
       );
