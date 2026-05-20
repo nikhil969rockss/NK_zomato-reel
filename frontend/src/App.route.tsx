@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router";
-import LandingPage from "./pages/LandingPage";
-import RegisterUserPage from "./pages/RegisterUserPage";
-import LoginUserPage from "./pages/LoginUserPage";
-import RegisterFoodPartnerPage from "./pages/RegisterFoodPartnerPage";
-import LoginFoodPartnerPage from "./pages/LoginFoodPartnerPage";
+import LandingPage from "./pages/general/LandingPage";
+import RegisterUserPage from "./pages/auth/RegisterUserPage";
+import LoginUserPage from "./pages/auth/LoginUserPage";
+import RegisterFoodPartnerPage from "./pages/auth/RegisterFoodPartnerPage";
+import LoginFoodPartnerPage from "./pages/auth/LoginFoodPartnerPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import FoodReelsPage from "./pages/FoodReelsPage";
+import FoodReelsPage from "./pages/auth/FoodReelsPage";
 import RedirectRoute from "./components/RedirectRoute";
 
 const router = createBrowserRouter([

@@ -7,8 +7,12 @@ import {
   loginFoodPartnerController,
   logoutFoodPartnerController,
   getLoggedInUserController,
+  getLoggedInFoodPartnerController,
 } from '../controllers/auth.controller';
-import { authenticateUser } from '../middlewares/auth.middleware';
+import {
+  authenticateFoodPartnerUser,
+  authenticateUser,
+} from '../middlewares/auth.middleware';
 
 const authRouter = express.Router();
 
@@ -58,5 +62,15 @@ authRouter.post('/food-partner/login', logoutFoodPartnerController);
  * @access - PROTECTED [only user and food partner can access]
  */
 authRouter.get('/get-user', authenticateUser, getLoggedInUserController);
+
+/**
+ * @route POST api/v1/auth/get-food-partner
+ * @access - PROTECTED [only food partner can access]
+ */
+authRouter.get(
+  '/get-food-partner',
+  authenticateFoodPartnerUser,
+  getLoggedInFoodPartnerController
+);
 
 export default authRouter;
