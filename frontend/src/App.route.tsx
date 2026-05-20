@@ -5,8 +5,10 @@ import LoginUserPage from "./pages/auth/LoginUserPage";
 import RegisterFoodPartnerPage from "./pages/auth/RegisterFoodPartnerPage";
 import LoginFoodPartnerPage from "./pages/auth/LoginFoodPartnerPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import FoodReelsPage from "./pages/auth/FoodReelsPage";
+import FoodReelsPage from "./pages/food-partner/FoodReelsPage";
 import RedirectRoute from "./components/RedirectRoute";
+import CheckAuthForFoodPartner from "./components/CheckAuthForFoodPartner";
+import CreateFoodPage from "./pages/food-partner/CreateFood";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <FoodReelsPage />
       </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/create-food",
+    element: (
+      <CheckAuthForFoodPartner>
+        <CreateFoodPage />
+      </CheckAuthForFoodPartner>
     ),
   },
 ]);

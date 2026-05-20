@@ -19,6 +19,7 @@ declare global {
     fullName: string;
     email: string;
     password: string;
+    avatar: string;
   }
 
   interface FoodPartner {
@@ -29,6 +30,7 @@ declare global {
     address: string;
     email: string;
     password: string;
+    avatar: string;
   }
 
   interface IUserDocument extends User, Document {

@@ -41,7 +41,13 @@ const createFoodPostController = asyncHandler(async (req, res, _) => {
  * @description - get all food posts
  */
 const getAllFoodPostsController = asyncHandler(async (req, res, _) => {
-  const allPost = await FoodPostModel.find({});
+  const allPost = await FoodPostModel.find({}).populate('foodPartnerId', {
+    password: 0,
+    createdAt: 0,
+    updatedAt: 0,
+    __v: 0,
+  });
+
   return res
     .status(200)
     .json(new ApiResonse(200, 'All post fetched successfully', allPost));

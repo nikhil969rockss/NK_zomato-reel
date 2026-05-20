@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import BackgroundTheme from "./BackgroundTheme";
 import { LoaderCircle } from "lucide-react";
 import { Navigate } from "react-router";
+import Loading from "./Loading";
 
 const RedirectRoute = ({ children }: { children: React.ReactNode }) => {
   const user = useAppSelector((state) => state.user.user);
@@ -26,17 +27,10 @@ const RedirectRoute = ({ children }: { children: React.ReactNode }) => {
   }, [dispatch]);
 
   if (loading) {
-    return (
-      <>
-        <BackgroundTheme />
-        <div className="relative flex justify-center items-center h-screen">
-          <LoaderCircle className="animate-spin" size={32} />
-        </div>
-      </>
-    );
+    return <Loading />;
   }
 
-  if (user) {
+  if (user && !loading) {
     return <Navigate to={"/food-reels"} />;
   }
 

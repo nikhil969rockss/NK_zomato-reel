@@ -1,7 +1,10 @@
 import {
   ChefHat,
+  Coffee,
   Heart,
+  IceCream2,
   MapPin,
+  Pizza,
   Play,
   TrendingUp,
   Users,
@@ -137,4 +140,27 @@ const LINKS = {
   Legal: ["Privacy", "Terms", "Security", "Cookies"],
 };
 
-export { FOOD_IMAGES, BRANDS, FEATURES, REELS, STEPS, LINKS };
+const FLOATING_ICONS = [
+  {
+    Icon: Pizza,
+    className: "left-10 top-24",
+    delay: 0,
+  },
+  {
+    Icon: Coffee,
+    className: "left-20 bottom-32",
+    delay: 0.4,
+  },
+  {
+    Icon: UtensilsCrossed,
+    className: "right-10 top-40",
+    delay: 0.2,
+  },
+  {
+    Icon: IceCream2,
+    className: "right-16 bottom-24",
+    delay: 0.6,
+  },
+];
+
+export { FOOD_IMAGES, BRANDS, FEATURES, REELS, STEPS, LINKS, FLOATING_ICONS };
